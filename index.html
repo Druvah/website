@@ -4,135 +4,279 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zenith Development</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Reset some default styles */
-        body, h1, h2, p, ul, li {
-            margin: 0;
-            padding: 0;
+        :root {
+            --primary-color: #ff7e5f;
+            --secondary-color: #feb47b;
+            --accent-color: #ff4b2b;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
         }
 
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
         }
 
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
         header {
-            background: #333;
-            color: #fff;
-            padding: 10px 0;
-        }
-
-        header nav ul {
-            list-style: none;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            height: 100vh;
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
         }
 
-        header nav ul li {
-            display: inline;
-        }
-
-        header nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 10px 15px;
-        }
-
-        header nav ul li a:hover {
-            background: #575757;
-            border-radius: 5px;
-        }
-
-        .hero {
-            background: #35495e;
-            color: #fff;
-            padding: 60px 0;
+        .header-content {
             text-align: center;
+            color: white;
+            z-index: 1;
         }
 
-        .features {
-            background: #f4f4f4;
-            padding: 60px 0;
+        h1 {
+            font-size: 3rem; /* Smaller font size for mobile */
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .features .container {
+        .tagline {
+            font-size: 1.2rem; /* Smaller font size for mobile */
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.5s backwards;
+        }
+
+        .button-group {
             display: flex;
-            justify-content: space-between;
-            align-items: stretch;
+            justify-content: center;
+            gap: 20px;
         }
 
-        .feature {
-            background: #fff;
+        .cta-button, .discord-button {
+            display: inline-block;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            animation: fadeInUp 1s ease-out 1s backwards;
+        }
+
+        .discord-button {
+            background-color: #7289DA;
+            animation: fadeInUp 1s ease-out 1.2s backwards;
+        }
+
+        .cta-button:hover, .discord-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .discord-button:hover {
+            background-color: #5e77d4;
+        }
+
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .shape {
+            position: absolute;
+            background-color: rgba(255,255,255,0.1);
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 22s;
+        }
+
+        .shape:nth-child(2) {
+            width: 60px;
+            height: 60px;
+            top: 60%;
+            right: 20%;
+            animation-duration: 18s;
+        }
+
+        .shape:nth-child(3) {
+            width: 100px;
+            height: 100px;
+            bottom: 10%;
+            left: 30%;
+            animation-duration: 25s;
+        }
+
+        section {
+            padding: 100px 0;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        .services-grid, .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background-color: white;
             border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            padding: 20px;
-            flex: 1;
-            margin: 0 10px;
+            padding: 30px;
             text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
 
-        .feature h2 {
-            margin-bottom: 15px;
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
         }
 
-        .feature p {
-            color: #666;
+        .icon {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 20px;
         }
 
-        footer {
-            background: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(0) rotate(0deg);
+            }
+            to {
+                transform: translateY(-100vh) rotate(360deg);
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        <div class="container">
-            <nav>
-                <ul>
-                    <li><a href="#">Zenith Development</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </nav>
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="header-content">
+            <h1>Zenith Development</h1>
+            <p class="tagline">Providing affordable, high-quality Java plugins.</p>
+            <div class="button-group">
+                <a href="#contact" class="cta-button">Get Started</a>
+                <a href="https://discord.gg/your-invite-link" class="discord-button">Join Our Discord</a>
+            </div>
         </div>
     </header>
-    <section class="hero">
+
+    <section id="services">
         <div class="container">
-            <h1>Zenith Development</h1>
-            <p>A Java Development Team providing affordable and high-quality plugins.</p>
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="card">
+                    <div class="icon">🚀</div>
+                    <h3>Custom Plugin Development</h3>
+                    <p>Tailored plugins to fit your server's needs.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">⚙️</div>
+                    <h3>Server Setup</h3>
+                    <p>Complete server setup and optimization.</p>
+                </div>
+                <div class="card">
+                    <div class="icon">🛠️</div>
+                    <h3>Maintenance & Support</h3>
+                    <p>Ongoing support for your plugins and server.</p>
+                </div>
+            </div>
         </div>
     </section>
-    <section class="features">
+
+    <section id="work">
         <div class="container">
-            <div class="feature">
-                <h2>Fast Support</h2>
-                <p>Our support team is always ready to assist you with quick responses and solutions to keep your projects running smoothly.</p>
-            </div>
-            <div class="feature">
-                <h2>High-Quality Plugins</h2>
-                <p>Our plugins are guaranteed to maintain high quality performance without any issues, and they are offered at a very affordable price.</p>
-            </div>
-            <div class="feature">
-                <h2>Customizable Features</h2>
-                <p>The plugins will always be fully configurable from top to bottom.</p>
+            <h2>Our Work</h2>
+            <div class="work-grid">
+                <div class="card">
+                    <img src="placeholder-image-1.jpg" alt="Project 1">
+                    <h3>Project 1</h3>
+                    <p>High-quality plugins designed to enhance player experience.</p>
+                </div>
+                <div class="card">
+                    <img src="placeholder-image-2.jpg" alt="Project 2">
+                    <h3>Project 2</h3>
+                    <p>Custom server setup with a focus on performance and security.</p>
+                </div>
             </div>
         </div>
     </section>
+
+    <section id="team">
+        <div class="container">
+            <h2>Our Team</h2>
+            <div class="services-grid">
+                <div class="card">
+                    <h3>Vorzya</h3>
+                    <p>Lead Developer</p>
+                </div>
+                <div class="card">
+                    <h3>Venyo</h3>
+                    <p>Lead Developer</p>
+                </div>
+                <div class="card">
+                    <h3>Tawny</h3>
+                    <p>Website Developer & Knowledge base</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Join Our Community</h2>
+            <p>For inquiries or custom plugin requests, join our Discord and open a ticket. Our team is ready to assist you with all your development needs.</p>
+            <a href="https://discord.gg/3VKxZnVwpe" class="discord-button">Join Our Discord</a>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
-            <p>Zenith Development © All rights reserved</p>
-            <p>Not affiliated with Mojang AB or Microsoft</p>
+            <p>&copy; 2024 Zenith Development. All rights reserved.</p>
         </div>
     </footer>
 </body>
